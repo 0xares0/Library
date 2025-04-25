@@ -171,7 +171,7 @@ def library_app():
         st.session_state.library.add_member(member2)
 
     # Title
-    st.title(f"Welcome to the {Library.name}")
+    st.title(f"Welcome to the {st.session_state.library.name}")
 
    
     st.sidebar.title("Library Functions")
