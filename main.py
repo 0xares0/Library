@@ -227,7 +227,7 @@ def library_app():
 
                 new_member = Member(member_name, mem_id)
                 if mem_id is not None:
-                    st.session_state.Library.add_member(new_member)
+                    st.session_state.library.add_member(new_member)
 
                 else:
                     st.warning(f"There is no more ID numbers")
@@ -236,15 +236,15 @@ def library_app():
         st.title("Borrow Book")
 
         with st.form("Borrow Book"):
-            available_books = [book.title for book in st.session_state.Library.books if book.available]
-            member_ids = [member.member_id for member in st.session_state.Library.members]
+            available_books = [book.title for book in st.session_state.library.books if book.available]
+            member_ids = [member.member_id for member in st.session_state.library.members]
 
             if available_books and member_ids:
                 book_borrowed = st.selectbox("Select Book", options=available_books, placeholder="Please select the book to borrow")
                 borrower = st.selectbox("Choose Member", options=member_ids, placeholder="Please select the member borrowing")
 
                 if st.submit_button("Borrow Book"):
-                    st.session_state.Library.borrow_book(book_borrowed, borrower)
+                    st.session_state.library.borrow_book(book_borrowed, borrower)
                     st.write(f"{Book.title} successfully borrowed.")
                     st.rerun
 
@@ -259,7 +259,7 @@ def library_app():
         st.title("Return Books")
 
         with st.forms("Return Books"):
-            books_borrowed = [book.title for book in st.session_state.Library.books.borrowed]
+            books_borrowed = [book.title for book in st.session_state.library.books.borrowed]
             borrower_ids = [member.member_id for member in st.session_state.members if any(book in member.borrowed for book in Book.borrowed)]
 
             if books_borrowed and borrower_ids:
@@ -267,7 +267,7 @@ def library_app():
                 borrower = st.selectbox("Choose member", options=borrower_ids, placeholder="Please select the borrower returning")
 
                 if st.submit_button("Return Book"):
-                    st.session_state.Library.return_book(book_borrowed, borrower)
+                    st.session_state.library.return_book(book_borrowed, borrower)
                     st.write (f"{Book.title} successfully returned")
                     st.rerun()
             
@@ -279,28 +279,28 @@ def library_app():
                     st.warning(f"No borrowes recorded")
 
     if function_option == "Remove Book":
-        book_title = [book.title for book in st.session_state.Library.books if book.available]
+        book_title = [book.title for book in st.session_state.library.books if book.available]
 
         books_title = st.selectbox("Select Book", options=book_title, placeholder="Select book to remove")
         if books_title:
-            book_isbn = [book.isbn for book in st.session_state.Library.books if book.title == books_title]
+            book_isbn = [book.isbn for book in st.session_state.library.books if book.title == books_title]
             
             # Select ISBN
             books_isbn = st.selectbox("Select Book ISBN", options=book_isbn, placeholder="Select book isbn")
 
         if st.button("Remove Book"):
-            st.session_state.Library.remove_book(books_title, books_isbn)
+            st.session_state.library.remove_book(books_title, books_isbn)
             st.write(f"{Book.title} successfuly removed")
 
         
 
     if function_option == "Remove memeber":
-        mem_id = [member.member_id for member in st.session_state.Library.member]
+        mem_id = [member.member_id for member in st.session_state.library.member]
 
         m_id = st.selectbox("Select Member", options=mem_id, placeholder="Selece the member you wish to remove")
 
         if st.button("Remove member"):
-            st.session_state.Library.remove_member()
+            st.session_state.library.remove_member()
             st.write(f"{Member.member_id} successfully removed")
 
 
@@ -315,7 +315,7 @@ def library_app():
     if function_option == "Show members":
         st.title("Member Management")
         
-        m = st.session_state.Library.get_members_dataframe
+        m = st.session_state.library.get_members_dataframe
         st.dataframe(m)
 
 
