@@ -43,7 +43,7 @@ class Library:
     # add member
     def add_member(self, member):
         self.members.append(member)
-        return f"{member.name} with id {member.id} is officially a member of this library"
+        return f"{member.name} with id {member.member_id} is officially a member of this library"
     
     # Find book by title
     def find_book_by_title(self, title):
@@ -115,7 +115,7 @@ class Library:
     def remove_member(self, member_id):
         member = self.find_member_by_id(member_id)
 
-        if member_id == member.id:
+        if member_id == member.member_id:
             member.pop(member)
         
         else:
@@ -237,7 +237,7 @@ def library_app():
 
         with st.form("Borrow Book"):
             available_books = [book.title for book in st.session_state.Library.books if book.available]
-            member_ids = [member.id for member in st.session_state.Library.members]
+            member_ids = [member.member_id for member in st.session_state.Library.members]
 
             if available_books and member_ids:
                 book_borrowed = st.selectbox("Select Book", options=available_books, placeholder="Please select the book to borrow")
@@ -260,7 +260,7 @@ def library_app():
 
         with st.forms("Return Books"):
             books_borrowed = [book.title for book in st.session_state.Library.books.borrowed]
-            borrower_ids = [member.id for member in st.session_state.members if any(book in member.borrowed for book in Book.borrowed)]
+            borrower_ids = [member.member_id for member in st.session_state.members if any(book in member.borrowed for book in Book.borrowed)]
 
             if books_borrowed and borrower_ids:
                 books_returned = st.selectbox("Select Book", options=books_borrowed, placeholder="Please select the books to return")
@@ -295,13 +295,13 @@ def library_app():
         
 
     if function_option == "Remove memeber":
-        mem_id = [member.id for member in st.session_state.Library.member]
+        mem_id = [member.member_id for member in st.session_state.Library.member]
 
         m_id = st.selectbox("Select Member", options=mem_id, placeholder="Selece the member you wish to remove")
 
         if st.button("Remove member"):
             st.session_state.Library.remove_member()
-            st.write(f"{Member.id} successfully removed")
+            st.write(f"{Member.member_id} successfully removed")
 
 
     if function_option == "Show books":
