@@ -165,8 +165,8 @@ def library_app():
         book2 = Book("Compete", "Vera Nazarian", 90423212)
         st.session_state.library.add_books(book1)
         st.session_state.library.add_books(book2)
-        member1 = {"Alice Bob", "L001"}
-        member2 = {"John Doe", "L002"}
+        member1 = Member("Alice Bob", "L001")
+        member2 = Member("John Doe", "L002")
         st.session_state.library.add_member(member1)
         st.session_state.library.add_member(member2)
 
@@ -225,7 +225,7 @@ def library_app():
 
             if st.submit_button("Register Member"):
 
-                new_member = (member_name, mem_id)
+                new_member = Member(member_name, mem_id)
                 if mem_id is not None:
                     st.session_state.Library.add_member(new_member)
 
