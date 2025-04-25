@@ -158,7 +158,7 @@ def library_app():
 
     # Initialize session state
     if "library" not in st.session_state:
-        st.session_state.library = Library("Regia Bibloteca")
+        st.session_state.library = Library("La Biblioteca Royale")
         st.session_state.member_ids = set()
 
         book1 = Book("Qualify", "Vera Nazarian", 98328493)
@@ -320,7 +320,7 @@ def library_app():
 
 
 st.divider()
-st.write(f"© 2025 Royale Bibloteca Management System")
+st.write(f"© 2025 La Biblioteca Royale Management System")
 
 if __name__ == "__main__":
     library_app()    
