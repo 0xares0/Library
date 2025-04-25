@@ -157,7 +157,7 @@ class Library:
 def library_app():
 
     # Initialize session state
-    if "library" not in st.session_state.library:
+    if "library" not in st.session_state:
         st.session_state.library = Library("Regia Bibloteca")
         st.session_state.member_ids = set()
 
