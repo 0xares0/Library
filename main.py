@@ -177,7 +177,7 @@ def library_app():
     st.sidebar.title("Library Functions")
     function_option = st.sidebar.selectbox(
         "Select Function",
-        ["Add book", "Register member", "Borrow Book", "Return Book",
+        ["Add book", "Register Member", "Borrow Book", "Return Book",
         "Show Books", "Show members", "Remove Book", "Remove Member"]
     )
 
@@ -223,7 +223,7 @@ def library_app():
             member_name = st.text_input("Please enter the member's name")
             mem_id = generate_unique_id()
 
-            if st.submit_button("Register Member"):
+            if st.form_submit_button("Register Member"):
 
                 new_member = Member(member_name, mem_id)
                 if mem_id is not None:
@@ -243,7 +243,7 @@ def library_app():
                 book_borrowed = st.selectbox("Select Book", options=available_books, placeholder="Please select the book to borrow")
                 borrower = st.selectbox("Choose Member", options=member_ids, placeholder="Please select the member borrowing")
 
-                if st.submit_button("Borrow Book"):
+                if st.form_submit_button("Borrow Book"):
                     st.session_state.library.borrow_book(book_borrowed, borrower)
                     st.write(f"{Book.title} successfully borrowed.")
                     st.rerun
@@ -266,7 +266,7 @@ def library_app():
                 books_returned = st.selectbox("Select Book", options=books_borrowed, placeholder="Please select the books to return")
                 borrower = st.selectbox("Choose member", options=borrower_ids, placeholder="Please select the borrower returning")
 
-                if st.submit_button("Return Book"):
+                if st.form_submit_button("Return Book"):
                     st.session_state.library.return_book(book_borrowed, borrower)
                     st.write (f"{Book.title} successfully returned")
                     st.rerun()
