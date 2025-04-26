@@ -262,7 +262,7 @@ def library_app():
 
         with st.form("Return Books"):
             books_borrowed = [book.title for book in st.session_state.library.books if not book.available]
-            borrower_ids = [member.member_id for member in st.session_state.library.members if any(book in member.borrowed for book in Book.borrowed)]
+            borrower_ids = [member.member_id for member in st.session_state.library.members if any(book in member.borrowed for book in book.borrowed)]
 
             if books_borrowed and borrower_ids:
                 books_returned = st.selectbox("Select Book", options=books_borrowed, placeholder="Please select the books to return")
