@@ -145,6 +145,7 @@ class Library:
 
         for member in self.members:
             books_titles = member.borrowed
+
             member_data.append({
                 "Name": member.name,
                 "id": member.member_id,
@@ -228,6 +229,7 @@ def library_app():
                 new_member = Member(member_name, mem_id)
                 if mem_id is not None:
                     st.session_state.library.add_member(new_member)
+                    st.write(f"New member with ID {mem_id} added")
 
                 else:
                     st.warning(f"There is no more ID numbers")
@@ -297,7 +299,7 @@ def library_app():
     if function_option == "Remove memeber":
         mem_id = [member.member_id for member in st.session_state.library.member]
 
-        m_id = st.selectbox("Select Member", options=mem_id, placeholder="Selece the member you wish to remove")
+        select_id = st.selectbox("Select Member", options=mem_id, placeholder="Select the member you wish to remove")
 
         if st.button("Remove member"):
             st.session_state.library.remove_member()
@@ -308,14 +310,14 @@ def library_app():
         st.title("Book Management")
 
          # Show booksin a table
-        b = st.session_state.library.get_books_dataframe
+        b = st.session_state.library.get_books_dataframe()
         st.dataframe(b)
 
     # Show members in a table
     if function_option == "Show members":
         st.title("Member Management")
         
-        m = st.session_state.library.get_members_dataframe
+        m = st.session_state.library.get_members_dataframe()
         st.dataframe(m)
 
 
