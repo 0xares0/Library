@@ -261,7 +261,7 @@ def library_app():
         st.title("Return Books")
 
         with st.form("Return Books"):
-            books_borrowed = [book.title for book in st.session_state.library.books.borrowed]
+            books_borrowed = [book.title for book in st.session_state.library.books if not book.available]
             borrower_ids = [member.member_id for member in st.session_state.members if any(book in member.borrowed for book in Book.borrowed)]
 
             if books_borrowed and borrower_ids:
@@ -298,7 +298,7 @@ def library_app():
         
 
     if function_option == "Remove Member":
-        mem_id = [member.member_id for member in st.session_state.library.member]
+        mem_id = [member.member_id for member in st.session_state.library.members]
 
         select_id = st.selectbox("Select Member", options=mem_id, placeholder="Select the member you wish to remove")
 
