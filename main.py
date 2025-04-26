@@ -271,7 +271,7 @@ def library_app():
                 borrower_member = next((member for member in st.session_state.library.members if member.member_id == borrower), None)
 
                 if st.form_submit_button("Return Book"):
-                    if books_returned not in borrower_member.borrowed:
+                    if books_returned in borrower_member.borrowed:
                         st.session_state.library.return_book(books_returned, borrower)
                         st.write (f"{books_returned} successfully returned")
                         st.rerun()
