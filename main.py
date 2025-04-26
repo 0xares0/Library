@@ -271,7 +271,7 @@ def library_app():
                 borrower_member = next((member for member in st.session_state.library.members if member.member_id == borrower), None)
 
                 if st.form_submit_button("Return Book"):
-                    if books_returned in borrower_member.borrowed:
+                    if books_returned not in borrower_member.borrowed:
                         st.session_state.library.return_book(books_returned, borrower)
                         st.write (f"{books_returned} successfully returned")
                         st.rerun()
@@ -283,13 +283,8 @@ def library_app():
                     st.warning(f"No books borrowed")
 
                 if not borrower_ids:
-                    st.warning(f"No borrowers recorded")
+                    st.warning(f"No borrowers recorded")   
             
-            
-            
-            
-           
-
     if function_option == "Remove Book":
         book_title = [book.title for book in st.session_state.library.books if book.available]
 
