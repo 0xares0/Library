@@ -270,7 +270,7 @@ def library_app():
                     borrower = st.selectbox("Choose member", options=borrower_ids, placeholder="Please select the borrower returning")            
 
                     st.session_state.library.return_book(books_returned, borrower)
-                    st.write (f"{book.title} successfully returned")
+                    st.write (f"{books_returned} successfully returned")
                     st.rerun()
             
             else:
