@@ -263,16 +263,21 @@ def library_app():
         with st.form("Return Books"):
             books_borrowed = [book.title for book in st.session_state.library.books if not book.available]
             borrower_ids = [member.member_id for member in st.session_state.library.members if any(book in member.borrowed for book in books_borrowed)]
-
+            
             
             if books_borrowed and borrower_ids:
                 books_returned = st.selectbox("Select Book", options=books_borrowed, placeholder="Please select the books to return")
                 borrower = st.selectbox("Choose member", options=borrower_ids, placeholder="Please select the borrower returning")            
+                borrower_member = next((member for member in st.session_state.library.members if member.member_id == borrower), None)
 
                 if st.form_submit_button("Return Book"):
-                    st.session_state.library.return_book(books_returned, borrower)
-                    st.write (f"{books_returned} successfully returned")
-                    st.rerun()
+                    if books_returned not in borrower_member.borrowed:
+                        st.session_state.library.return_book(books_returned, borrower)
+                        st.write (f"{books_returned} successfully returned")
+                        st.rerun()
+
+                    else:
+                        st.warning(f"Did not borrow that book")
             else:
                 if not books_borrowed:
                     st.warning(f"No books borrowed")
