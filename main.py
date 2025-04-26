@@ -248,7 +248,7 @@ def library_app():
                 if st.form_submit_button("Borrow Book"):
                     st.session_state.library.borrow_book(book_borrowed, borrower)
                     st.write(f"{book_borrowed} successfully borrowed.")
-                    st.rerun
+                    st.rerun()
 
             else:
                 if not available_books:
