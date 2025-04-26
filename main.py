@@ -257,7 +257,7 @@ def library_app():
                 if not member_ids:
                     st.warning(f"No members to borrow books")
 
-    if function_option == "Return Books":
+    if function_option == "Return Book":
         st.title("Return Books")
 
         with st.form("Return Books"):
@@ -297,7 +297,7 @@ def library_app():
 
         
 
-    if function_option == "Remove member":
+    if function_option == "Remove Member":
         mem_id = [member.member_id for member in st.session_state.library.member]
 
         select_id = st.selectbox("Select Member", options=mem_id, placeholder="Select the member you wish to remove")
@@ -307,7 +307,7 @@ def library_app():
             st.write(f"{Member.member_id} successfully removed")
 
 
-    if function_option == "Show books":
+    if function_option == "Show Books":
         st.title("Book Management")
 
          # Show booksin a table
