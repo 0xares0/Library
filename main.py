@@ -247,7 +247,7 @@ def library_app():
 
                 if st.form_submit_button("Borrow Book"):
                     st.session_state.library.borrow_book(book_borrowed, borrower)
-                    st.write(f"{Book.title} successfully borrowed.")
+                    st.write(f"{book.title} successfully borrowed.")
                     st.rerun
 
             else:
