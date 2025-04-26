@@ -137,7 +137,7 @@ class Library:
                 "status": status
             })
     
-        return p.Dataframe(book_data)
+        return p.DataFrame(book_data)
 
     # Creating member dataframe
     def get_members_dataframe(self):
@@ -260,7 +260,7 @@ def library_app():
     if function_option == "Return Books":
         st.title("Return Books")
 
-        with st.forms("Return Books"):
+        with st.form("Return Books"):
             books_borrowed = [book.title for book in st.session_state.library.books.borrowed]
             borrower_ids = [member.member_id for member in st.session_state.members if any(book in member.borrowed for book in Book.borrowed)]
 
@@ -270,7 +270,7 @@ def library_app():
 
                 if st.form_submit_button("Return Book"):
                     st.session_state.library.return_book(book_borrowed, borrower)
-                    st.write (f"{Book.title} successfully returned")
+                    st.write (f"{book.title} successfully returned")
                     st.rerun()
             
             else:
@@ -284,6 +284,7 @@ def library_app():
         book_title = [book.title for book in st.session_state.library.books if book.available]
 
         books_title = st.selectbox("Select Book", options=book_title, placeholder="Select book to remove")
+
         if books_title:
             book_isbn = [book.isbn for book in st.session_state.library.books if book.title == books_title]
             
@@ -292,11 +293,11 @@ def library_app():
 
         if st.button("Remove Book"):
             st.session_state.library.remove_book(books_title, books_isbn)
-            st.write(f"{Book.title} successfuly removed")
+            st.write(f"{book.title} successfuly removed")
 
         
 
-    if function_option == "Remove memeber":
+    if function_option == "Remove member":
         mem_id = [member.member_id for member in st.session_state.library.member]
 
         select_id = st.selectbox("Select Member", options=mem_id, placeholder="Select the member you wish to remove")
