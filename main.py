@@ -261,7 +261,7 @@ def library_app():
         st.title("Return Books")
 
         with st.form("Return Books"):
-            books_borrowed = [book.title for book in st.session_state.library.books if not book.available]
+            books_borrowed = [book.title for book in st.session_state.library.books if book.borrower]
             borrower_ids = [member.member_id for member in st.session_state.library.members if any(book in member.borrowed for book in books_borrowed)]
             
             
